@@ -5,6 +5,9 @@ import './App.css';
 // import {Footer} from "./site/Footer";
 // import {NewComponent} from "./NewComponent"
 import React, {MouseEvent, useState} from 'react';
+import {FullInput} from "./components input/fullInput";
+import {Button} from "./components input/button";
+import {Input} from "./components input/input";
 
 // import {Button} from "./components button/button";
 
@@ -59,55 +62,90 @@ function App() {
     //
     //     </div>
     // );
-type FilterType = 'all'|'RUBLS'|'Dollars'
-    const [money, setMoney] = useState([
-        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
-        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
-        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+// type FilterType = 'all'|'RUBLS'|'Dollars'
+//     const [money, setMoney] = useState([
+//         {banknots: 'Dollars', value: 100, number: ' a1234567890'},
+//         {banknots: 'Dollars', value: 50, number: ' z1234567890'},
+//         {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
+//         {banknots: 'Dollars', value: 100, number: ' e1234567890'},
+//         {banknots: 'Dollars', value: 50, number: ' c1234567890'},
+//         {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
+//         {banknots: 'Dollars', value: 50, number: ' x1234567890'},
+//         {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+//     ])
+//
+// const [filter,setFilter]=useState<FilterType>('all')
+//
+//     let currentMoney = money;
+//     if (filter === 'RUBLS') {
+//         currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'RUBLS')
+//     }
+//     if (filter === 'Dollars')
+//         currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'Dollars')
+//
+//
+//     const onClickFilterHandler = (nameButton: FilterType) => {
+//         setFilter(nameButton)
+//
+//     }
+//     return (
+//         <>
+//             <ul>
+//                 {currentMoney.map((objectFromMoneyArray, index) => {
+//                     return (
+//                         <li key={index}>
+//                             <span>{objectFromMoneyArray.banknots}</span>
+//                             <span>{objectFromMoneyArray.value}</span>
+//                             <span>{objectFromMoneyArray.number}</span>
+//                         </li>
+//                     )
+//                 })}
+//             </ul>
+//             <div style={{marginLeft: '35px'}}>
+//                 <button onClick={() => onClickFilterHandler("all")}>all</button>
+//                 <button onClick={() => onClickFilterHandler("RUBLS")}>Rubl</button>
+//                 <button onClick={() => onClickFilterHandler("Dollars")}>Dollar</button>
+//             </div>
+//         </>
+//
+//
+//     );
+
+    let [message, setMessage] = useState([
+        {message: 'message1'},
+        {message: 'message2'},
+        {message: 'message3'}
     ])
 
-const [filter,setFilter]=useState<FilterType>('all')
+    let [title, setTitle] = useState('')
+    console.log(title)
 
-    let currentMoney = money;
-    if (filter === 'RUBLS') {
-        currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'RUBLS')
+    const addMessage = (title: string) => {
+        let newMessage = {message: title}
+        setMessage([newMessage, ...message])
     }
-    if (filter === 'Dollars')
-        currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'Dollars')
 
-
-    const onClickFilterHandler = (nameButton: FilterType) => {
-        setFilter(nameButton)
+    const callBackButtonHandler = () => {
+        addMessage(title)
+        setTitle('')
 
     }
+
     return (
-        <>
-            <ul>
-                {currentMoney.map((objectFromMoneyArray, index) => {
-                    return (
-                        <li key={index}>
-                            <span>{objectFromMoneyArray.banknots}</span>
-                            <span>{objectFromMoneyArray.value}</span>
-                            <span>{objectFromMoneyArray.number}</span>
-                        </li>
-                    )
-                })}
-            </ul>
-            <div style={{marginLeft: '35px'}}>
-                <button onClick={() => onClickFilterHandler("all")}>all</button>
-                <button onClick={() => onClickFilterHandler("RUBLS")}>Rubl</button>
-                <button onClick={() => onClickFilterHandler("Dollars")}>Dollar</button>
-            </div>
-        </>
-
-
+        <div className="App">
+            <Input setTitle={setTitle} title={title}/>
+            <Button name={'+'} callBack={callBackButtonHandler}/>
+            {message.map((el, index) => {
+                return (
+                    <div key={index}>{el.message}</div>
+                )
+            })}
+        </div>
     );
+
+
 }
+
 
 export default App;
 
