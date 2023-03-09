@@ -5,7 +5,8 @@ import './App.css';
 // import {Footer} from "./site/Footer";
 // import {NewComponent} from "./NewComponent"
 import React, {MouseEvent, useState} from 'react';
-import {Button} from "./components button/button";
+
+// import {Button} from "./components button/button";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
     //     {id: 1, name: "Sasha", age: 34},
     //     {id: 1, name: "Gosha", age: 9},
     // ])
+
 
     // const Button1Foo = (subscribler: string, age: number) => {
     //     console.log(subscribler, age)
@@ -39,26 +41,72 @@ function App() {
     //     </div>
     // );
     // let a = 1
-    let[a, setA]=useState(1)
-        const onClickHandler = () => {
-        setA(++a)
-        console.log(a)
-    }
-    const onClickHandler0 = () => {
-        setA(0)
-        console.log(a)
-    }
+    // let[a, setA]=useState(1)
+    //     const onClickHandler = () => {
+    //     setA(++a)
+    //     console.log(a)
+    // }
+    // const onClickHandler0 = () => {
+    //     setA(0)
+    //     console.log(a)
+    // }
+    //
+    // return (
+    //     <div className="App">
+    //         <h1>{a}</h1>
+    //         <button onClick={onClickHandler}>number</button>
+    //         <button onClick={onClickHandler0}>0</button>
+    //
+    //     </div>
+    // );
+type FilterType = 'all'|'RUBLS'|'Dollars'
+    const [money, setMoney] = useState([
+        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
+        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
+        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
+        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
+        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
+    ])
 
+const [filter,setFilter]=useState<FilterType>('all')
+
+    let currentMoney = money;
+    if (filter === 'RUBLS') {
+        currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'RUBLS')
+    }
+    if (filter === 'Dollars')
+        currentMoney = money.filter((filterMoney) => filterMoney.banknots === 'Dollars')
+
+
+    const onClickFilterHandler = (nameButton: FilterType) => {
+        setFilter(nameButton)
+
+    }
     return (
-        <div className="App">
-            <h1>{a}</h1>
-            <button onClick={onClickHandler}>number</button>
-            <button onClick={onClickHandler0}>0</button>
+        <>
+            <ul>
+                {currentMoney.map((objectFromMoneyArray, index) => {
+                    return (
+                        <li key={index}>
+                            <span>{objectFromMoneyArray.banknots}</span>
+                            <span>{objectFromMoneyArray.value}</span>
+                            <span>{objectFromMoneyArray.number}</span>
+                        </li>
+                    )
+                })}
+            </ul>
+            <div style={{marginLeft: '35px'}}>
+                <button onClick={() => onClickFilterHandler("all")}>all</button>
+                <button onClick={() => onClickFilterHandler("RUBLS")}>Rubl</button>
+                <button onClick={() => onClickFilterHandler("Dollars")}>Dollar</button>
+            </div>
+        </>
 
-        </div>
+
     );
-
-
 }
 
 export default App;
